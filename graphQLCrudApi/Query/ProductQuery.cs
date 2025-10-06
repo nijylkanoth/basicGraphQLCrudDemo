@@ -1,14 +1,11 @@
-﻿using GraphQL.Types;
-using graphQLCrudApi.Interfaces;
-using graphQLCrudApi.Types;
+﻿using graphQLCrudApi.Interfaces;
+using graphQLCrudApi.Models;
 
 namespace graphQLCrudApi.Query;
 
-public class ProductQuery : ObjectGraphType
+public class ProductQuery(IProductRepository productRepository)
 {
-    public ProductQuery(IProductRepository productRepository)
-    {
-        Field<ListGraphType<ProductType>>("products").Resolve(context => productRepository.GetProducts());
+    public IEnumerable<ProductModel> GetProducts()
+        => productRepository.GetProducts();
 
-    }
 }
